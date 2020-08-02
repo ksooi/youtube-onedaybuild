@@ -41,6 +41,23 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         tableView.reloadData()
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        // Confirm that a video was selected
+        guard tableView.indexPathForSelectedRow != nil else {
+                return
+        }
+        
+        // Get the reference to the video that was tapped on
+        let selectedVideo = videos[tableView.indexPathForSelectedRow!.row]
+        
+        // Get the reference to the detail view controller
+        let detailVC = segue.destination as! DetailViewController
+        
+        // Set the video property of the detail view controller
+        detailVC.video = selectedVideo
+    }
+    
     // MARK: - TableView Methods
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
